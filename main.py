@@ -27,11 +27,43 @@ def calc_cos_n_sin(value):
 
 
 def calc_luminance(cos_a, cos_b, cos_phi, cos_theta, sin_a, sin_b, sin_phi, sin_theta):
-    return cos_phi * cos_theta * sin_b - cos_a * cos_theta * sin_phi - sin_a * sin_theta * cos_b * (
-            cos_a * sin_theta - cos_theta * sin_a * sin_phi)
+    """
+    Luminance should be equal to:
+    cosphi*costheta*sinB - cosA*costheta*sinphi -
+    sinA*sintheta + cosB*(cosA*sintheta - costheta*sinA*sinphi);
+    :param cos_a:
+    :param cos_b:
+    :param cos_phi:
+    :param cos_theta:
+    :param sin_a:
+    :param sin_b:
+    :param sin_phi:
+    :param sin_theta:
+    :return:
+    """
+    return cos_phi * cos_theta * sin_b - \
+           cos_a * cos_theta * sin_phi - \
+           sin_a * sin_theta + cos_b * (
+                   cos_a * sin_theta - cos_theta * sin_a * sin_phi
+           )
 
 
 def calc_3d_coordinates(circle_x, circle_y, cos_a, cos_b, cos_phi, sin_a, sin_b, sin_phi):
+    """
+    Calculating coordinates in 3D space should be equal to:
+    x = circlex*(cosB*cosphi + sinA*sinB*sinphi) - circley*cosA*sinB;
+    y = circlex*(sinB*cosphi - sinA*cosB*sinphi) + circley*cosA*cosB;
+    z = K2 + cosA*circlex*sinphi + circley*sinA;
+    :param circle_x:
+    :param circle_y:
+    :param cos_a:
+    :param cos_b:
+    :param cos_phi:
+    :param sin_a:
+    :param sin_b:
+    :param sin_phi:
+    :return:
+    """
     x = circle_x * (cos_b * cos_phi + sin_a * sin_b * sin_phi) - circle_y * cos_a * sin_b
     y = circle_x * (sin_b * cos_phi - sin_a * cos_b * sin_phi) + circle_y * cos_a * cos_b
     z = K2 + cos_a * circle_x * sin_phi + circle_y * sin_a
